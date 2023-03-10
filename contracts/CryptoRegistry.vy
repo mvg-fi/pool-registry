@@ -79,7 +79,7 @@ event PoolRemoved:
     pool: indexed(address)
 
 
-GAUGE_CONTROLLER: constant(address) = 0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB
+GAUGE_CONTROLLER: constant(address) = 0x6191832dc93061B446A5A34B9afB07dBFb8366E5
 
 address_provider: public(AddressProvider)
 base_pool_registry: public(BasePoolRegistry)

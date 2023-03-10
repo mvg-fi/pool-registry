@@ -1,15 +1,17 @@
-from brownie import ZERO_ADDRESS, AddressProvider, PoolInfo, Registry, Swaps, accounts
+from brownie import ZERO_ADDRESS, AddressProvider, PoolInfo, Registry, Swaps, accounts, BasePoolRegistry, CryptoRegistry
 from brownie.network.gas.strategies import GasNowScalingStrategy
 
 from scripts.add_pools import main as add_pools
 
 # modify this prior to mainnet use
-deployer = accounts.at("0x7EeAC6CDdbd1D0B8aF061742D41877D7F707289a", force=True)
+deployer = accounts.load('owner')
 
-ADDRESS_PROVIDER = "0x0000000022D53366457F9d5E68Ec105046FC4383"
-GAUGE_CONTROLLER = "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB"
+WETH_ADDRESS = "0xBac65f64cd7Ac8a2e71800C504b1E61D8c405015"
+ADDRESS_PROVIDER = "0xc0ba8A26be45EfCBD4252C317f0b1b02776022C0"
+GAUGE_CONTROLLER = deployer.address
 
-gas_strategy = GasNowScalingStrategy("standard", "fast")
+gas_strategy = 50000007
+print('gas_strategy: ',gas_strategy)
 
 
 def deploy_registry():
@@ -58,7 +60,7 @@ def deploy_swaps():
 
     provider = AddressProvider.at(ADDRESS_PROVIDER)
 
-    swaps = Swaps.deploy(provider, ZERO_ADDRESS, {"from": deployer, "gas_price": gas_strategy})
+    swaps = Swaps.deploy(provider, ZERO_ADDRESS, WETH_ADDRESS, {"from": deployer, "gas_price": gas_strategy})
 
     if provider.max_id() == 1:
         provider.add_new_id(swaps, "Exchanges", {"from": deployer, "gas_price": gas_strategy})
@@ -67,3 +69,21 @@ def deploy_swaps():
 
     print(f"PoolInfo deployed to: {swaps.address}")
     print(f"Total gas used: {(balance - deployer.balance()) / 1e18:.4f} eth")
+
+def deploy_base_pool_registry_and_crypto_registry():
+    """
+    Deploy `CryptoRegistry`,`BasePoolRegistry` and set the address in `AddressProvider`.
+    """
+    balance = deployer.balance()
+
+    provider = AddressProvider.at(ADDRESS_PROVIDER)
+
+    bpRegistry = BasePoolRegistry.deploy({"from": deployer, "gas_price": gas_strategy})
+    cRegistry = CryptoRegistry.deploy(ADDRESS_PROVIDER, bpRegistry.address,{"from": deployer, "gas_price": gas_strategy})
+
+    print(f"CryptoRegistry deployed to: {cRegistry.address}")
+    print(f"BasePoolRegistry deployed to: {bpRegistry.address}")
+    print(f"Total gas used: {(balance - deployer.balance()) / 1e18:.4f} eth")
+
+def main():
+    deploy_swaps()

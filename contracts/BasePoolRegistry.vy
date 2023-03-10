@@ -40,7 +40,7 @@ event BasePoolRemoved:
     basepool: indexed(address)
 
 
-ADDRESS_PROVIDER: constant(address) = 0x0000000022D53366457F9d5E68Ec105046FC4383
+ADDRESS_PROVIDER: constant(address) = 0xc0ba8A26be45EfCBD4252C317f0b1b02776022C0
 base_pool: HashMap[address, BasePool]
 base_pool_list: public(address[100])
 get_base_pool_for_lp_token: public(HashMap[address, address])
