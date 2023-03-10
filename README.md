@@ -1,6 +1,6 @@
-# curve-pool-registry
+# pool-registry
 
-On-chain registry and unified API for [Curve.fi](https://github.com/curvefi/curve-contract) pools.
+On-chain registry and unified API for Curve pools.
 
 ## Usage
 
@@ -8,9 +8,9 @@ See the [documentation](https://curve.readthedocs.io/) for information on how th
 
 ## Deployments
 
-- [`AddressProvider`](contracts/AddressProvider.vy): [0x0000000022D53366457F9d5E68Ec105046FC4383](https://etherscan.io/address/0x0000000022d53366457f9d5e68ec105046fc4383)
-- [`Registry`](contracts/Registry.vy): [0x90e00ace148ca3b23ac1bc8c240c2a7dd9c2d7f5](https://etherscan.io/address/0x90e00ace148ca3b23ac1bc8c240c2a7dd9c2d7f5)
-- [`PoolInfo`](contracts/PoolInfo.vy): [0xe64608E223433E8a03a1DaaeFD8Cb638C14B552C](https://etherscan.io/address/0xe64608E223433E8a03a1DaaeFD8Cb638C14B552C)
+- [`AddressProvider`](contracts/AddressProvider.vy): [0xc0ba8A26be45EfCBD4252C317f0b1b02776022C0](https://etherscan.io/address/0xc0ba8A26be45EfCBD4252C317f0b1b02776022C0)
+- [`Registry`](contracts/Registry.vy): [0xf0941ee9d4412ce0182B5d5eaF131b15022B633d](https://etherscan.io/address/0xf0941ee9d4412ce0182B5d5eaF131b15022B633d)
+- [`PoolInfo`](contracts/PoolInfo.vy): [0x518a16cAaFC5E0843d26215d7b68a16cdb1Bad74](https://etherscan.io/address/0x518a16cAaFC5E0843d26215d7b68a16cdb1Bad74)
 
 ## Testing and Development
 
@@ -76,7 +76,3 @@ brownie run deploy [FUNCTION NAME] --network mainnet
 ```
 
 You must set `deployer` prior to running on the mainnet. It is recommended to test the script in a forked mainnet environment prior to actual deployment.
-
-## License
-
-Except where otherwise noted, (c) Curve.Fi, 2020 - [All rights reserved](LICENSE).
